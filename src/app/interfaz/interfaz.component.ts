@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class InterfazComponent implements OnInit {
   status : number = 0;
   intentos : number = 0;
+  fallidosSeg : number = 0;
+  flag : boolean = false;
 
   constructor() { }
 
@@ -18,10 +20,16 @@ export class InterfazComponent implements OnInit {
   mostrarEstado(apuesta:string, numero:number):void{
     if((apuesta == "par" && numero%2 === 0) || (apuesta == "inpar" && numero%2 > 0)){
       this.status = 1; 
+      this.fallidosSeg = 0;
     }else{
       this.status = 2;
+      this.fallidosSeg ++;
     }
     this.intentos ++;
+    if(this.fallidosSeg > 5 && !this.flag){
+      this.status = 13;
+      this.flag = true;
+    } 
     return;
   }
 
